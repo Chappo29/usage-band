@@ -1,0 +1,13 @@
+{
+  "name": "usage-band",
+  "description": "Context and subscription-limit usage above the Claude Code prompt",
+  "owner": {
+    "name": "Chappo29"
+  },
+  "plugins": [
+    {
+      "name": "usage-band",
+      "source": "./"
+    }
+  ]
+}
