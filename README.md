@@ -48,8 +48,6 @@ claude plugin validate .
 claude plugin test .
 ```
 
-
-
 ---
 
 ## По-русски
