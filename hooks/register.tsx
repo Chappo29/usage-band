@@ -3,7 +3,7 @@ import type { EngineInterface, Register, SessionUsage } from 'claude-code'
 
 import type { Snapshot } from '../types'
 import { svg } from './draw'
-import { describe, parts } from './format'
+import { describe, lang, parts } from './format'
 import type { Part } from './format'
 import { parseUsage, USAGE_URL } from './poll'
 import type { PollOutcome } from './poll'
@@ -66,7 +66,9 @@ function bar(fill: number | undefined): [string, string] {
   return ['▰'.repeat(lit), '▱'.repeat(BAR - lit)]
 }
 
-export const register: Register = on => {
+export const register: Register = (on, options) => {
+  const l = lang(options.language)
+
   on('session.start', async ($, e, next) => {
     const result = await next(e)
     await refresh($, await $.session.usage())
@@ -99,7 +101,7 @@ export const register: Register = on => {
       return next(e)
     }
 
-    const ps = parts(s, (await read($, now)) || (await $.clock.now()))
+    const ps = parts(s, (await read($, now)) || (await $.clock.now()), l)
 
     // desktop draws an SVG: its own type and the gauge as ticks
     if (e.surface !== 'terminal') {
@@ -107,7 +109,7 @@ export const register: Register = on => {
       // no width: the drawing keeps its own size and shrinks to a narrower slot
       return (
         <Box paddingX={1} justifyContent="center">
-          <Svg key="usage" source={svg(ps)} alt={describe(ps)} />
+          <Svg key="usage" source={svg(ps)} alt={describe(ps, l)} />
         </Box>
       )
     }

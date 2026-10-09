@@ -1,9 +1,23 @@
 {
   "name": "usage-band",
-  "version": "0.2.0",
-  "description": "Строка над полем ввода: сколько израсходовано контекста и лимитов (5 часов, неделя)",
-  "author": { "name": "Chappo29" },
+  "version": "0.3.0",
+  "description": "Context window and subscription-limit usage (5-hour, weekly) above the prompt",
+  "author": {
+    "name": "Chappo29"
+  },
   "repository": "https://github.com/Chappo29/usage-band",
   "license": "MIT",
-  "types": "./types/index.d.ts"
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "language": {
+      "type": "string",
+      "title": "Language",
+      "description": "Language of the band: en or ru",
+      "default": "en",
+      "options": [
+        "en",
+        "ru"
+      ]
+    }
+  }
 }

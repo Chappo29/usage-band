@@ -8,6 +8,7 @@ const BODY = JSON.stringify({
   seven_day: { utilization: 51.4, resets_at: '2026-10-12T16:00:00Z' },
   seven_day_opus: null,
 })
+const RU = { options: { language: 'ru' } }
 const PROPS = { hasSurvey: false, isWorking: false, maxRows: 10, columns: 100 } as never
 
 test('reads the 5-hour and weekly windows from /usage', async () => {
@@ -34,7 +35,7 @@ function engine(on: On, reply: { status: number; text: string }, isLoggedIn = tr
   return asked
 }
 
-test('limits come from /usage with the session credential', async ($, on) => {
+test('limits come from /usage with the session credential', RU, async ($, on) => {
   const asked = engine(on, { status: 200, text: BODY })
   await $.session.start({ cwd: '.', surface: 'terminal', isInteractive: true })
   const ui = await $.ui.mount({ plugin: 'usage-band', surface: 'terminal', component: 'AbovePrompt', props: PROPS })
@@ -44,7 +45,7 @@ test('limits come from /usage with the session credential', async ($, on) => {
   await ui.unmount()
 })
 
-test('a failed poll leaves the band on what it had', async ($, on) => {
+test('a failed poll leaves the band on what it had', RU, async ($, on) => {
   engine(on, { status: 429, text: '' })
   await $.session.start({ cwd: '.', surface: 'terminal', isInteractive: true })
   const ui = await $.ui.mount({ plugin: 'usage-band', surface: 'terminal', component: 'AbovePrompt', props: PROPS })

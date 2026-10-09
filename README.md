@@ -1,38 +1,57 @@
-<img width="796" height="66" alt="image" src="https://github.com/user-attachments/assets/d7321dc5-bb6a-4f61-bfaa-b15162a21b8a" /># usage-band
+# usage-band
 
-Мод для Claude Code: над полем ввода — сколько израсходовано контекста и лимитов подписки.
+A Claude Code mod that shows, right above the prompt, how much of the context window and of your subscription limits you have used.
 
-<img width="796" height="66" alt="image" src="https://github.com/user-attachments/assets/1ea66fe4-44f6-4954-adb0-01c5e1e97c7c" />
+<img width="796" height="66" alt="usage-band above the prompt" src="https://github.com/user-attachments/assets/d7321dc5-bb6a-4f61-bfaa-b15162a21b8a" />
 
+<img width="796" height="66" alt="usage-band above the prompt" src="https://github.com/user-attachments/assets/1ea66fe4-44f6-4954-adb0-01c5e1e97c7c" />
 
-- **Контекст** — доля окна модели, занятая разговором, и токены.
-- **5 часов / неделя** — лимиты подписки, как на странице использования Claude (округление вверх), с отсчётом до сброса.
-- Цифра становится оранжевой от 70% и выворачивается в оранжевую плашку от 90%.
-- В десктоп-приложении строка рисуется SVG со своей типографикой; в терминале — символами в цветах темы.
+- **Context**: the share of the model's window the conversation takes, with token counts.
+- **5 hours / week**: subscription limits as Claude's usage page shows them (rounded up), with a countdown to the reset.
+- A figure turns orange at 70% and flips to an orange pill at 90%.
+- In the desktop app the band is an SVG with its own typography; in the terminal it is drawn in cells, in your theme's colors.
 
-Лимиты обновляются раз в минуту запросом к `api.anthropic.com/api/oauth/usage` с учётными данными сессии (их подставляет сам Claude Code, мод токена не видит), поэтому видна и трата в других окнах и на claude.ai. Без входа через подписку показывается только контекст.
+Limits are refreshed once a minute from `api.anthropic.com/api/oauth/usage` with the session's own credential (Claude Code attaches it; the mod never sees the token), so usage from other windows and claude.ai shows up too. Without a subscription login only the context is shown.
 
-## Установка
+## Install
 
-В терминале Claude Code:
+In a Claude Code terminal:
 
 ```
 /plugin install usage-band --marketplace Chappo29/usage-band
 ```
 
-Ответить `y` на добавление маркетплейса и выбрать user scope — мод появится во всех сессиях, включая вкладку Code десктоп-приложения.
+Answer `y` to add the marketplace and pick the user scope: the mod then loads in every session, including the desktop app's Code tab.
 
-Или из клона, без маркетплейса: путь к папке в `env.CLAUDE_CODE_PLUGIN_DIRS` в `~/.claude/settings.json`, либо `claude --plugin-dir <папка>`.
+Or from a clone, without a marketplace: put the folder's path in `env.CLAUDE_CODE_PLUGIN_DIRS` in `~/.claude/settings.json`, or run `claude --plugin-dir <folder>`.
 
-## Разработка
+## Language
+
+English by default, Russian available. Switch it in the config menu (`usage-band` → Language), or in `~/.claude/settings.json`:
+
+```json
+{
+  "pluginConfigs": {
+    "usage-band@usage-band": { "options": { "language": "ru" } }
+  }
+}
+```
+
+The key is the plugin's id: `usage-band@usage-band` when installed from this marketplace, `usage-band@inline` when loaded from a folder.
+
+## Development
 
 ```
 claude plugin validate .
 claude plugin test .
 ```
 
-Требуется Claude Code с поддержкой модов (function hooks), проверено на 2.1.293.
+Needs a Claude Code build with mods (function hooks); tested on 2.1.293.
 
 ---
 
-**English:** a Claude Code mod that shows context-window and subscription-limit usage (5-hour and weekly, with reset countdowns) in a band above the prompt. Limits are polled from `/api/oauth/usage` once a minute using the session's own credential. Install: `/plugin install usage-band --marketplace Chappo29/usage-band`.
+## По-русски
+
+Мод для Claude Code: над полем ввода — сколько израсходовано контекста и лимитов подписки (5 часов и неделя) с отсчётом до сброса. Лимиты обновляются раз в минуту с учётными данными сессии, поэтому видна и трата в других окнах и на claude.ai.
+
+Установка: `/plugin install usage-band --marketplace Chappo29/usage-band` в терминале Claude Code. Русский язык включается в меню настроек (`usage-band` → Language → `ru`) или через `pluginConfigs` в `~/.claude/settings.json`, как показано выше.
