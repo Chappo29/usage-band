@@ -11,6 +11,10 @@ A Claude Code mod that shows, right above the prompt, how much of the context wi
 
 Limits are refreshed once a minute from `api.anthropic.com/api/oauth/usage` with the session's own credential (Claude Code attaches it; the mod never sees the token), so usage from other windows and claude.ai shows up too. Without a subscription login only the context is shown.
 
+## Requirements
+
+A Claude Code build with mods (function hooks), which are in early access: verified on **2.1.289 and 2.1.293**. Older builds without the mods API (2.1.207, for one) do not load it: if nothing shows up, check `claude --version`. The limits need a Claude subscription login; with an API key only the context is shown.
+
 ## Install
 
 In a Claude Code terminal:
@@ -44,12 +48,14 @@ claude plugin validate .
 claude plugin test .
 ```
 
-Needs a Claude Code build with mods (function hooks); tested on 2.1.293.
+
 
 ---
 
 ## По-русски
 
 Мод для Claude Code: над полем ввода — сколько израсходовано контекста и лимитов подписки (5 часов и неделя) с отсчётом до сброса. Лимиты обновляются раз в минуту с учётными данными сессии, поэтому видна и трата в других окнах и на claude.ai.
+
+Нужна сборка Claude Code с модами (проверено на 2.1.289 и 2.1.293), на старых мод не загрузится.
 
 Установка: `/plugin install usage-band --marketplace Chappo29/usage-band` в терминале Claude Code. Русский язык включается в меню настроек (`usage-band` → Language → `ru`) или через `pluginConfigs` в `~/.claude/settings.json`, как показано выше.
