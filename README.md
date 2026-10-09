@@ -2,9 +2,7 @@
 
 A Claude Code mod that shows, right above the prompt, how much of the context window and of your subscription limits you have used.
 
-<img width="796" height="66" alt="usage-band above the prompt" src="https://github.com/user-attachments/assets/d7321dc5-bb6a-4f61-bfaa-b15162a21b8a" />
-
-<img width="796" height="66" alt="usage-band above the prompt" src="https://github.com/user-attachments/assets/1ea66fe4-44f6-4954-adb0-01c5e1e97c7c" />
+<img width="796" height="66" alt="usage-band above the prompt: context 23% used, 5 hours 6%, week 52%" src="assets/usage-band.png" />
 
 - **Context**: the share of the model's window the conversation takes, with token counts.
 - **5 hours / week**: subscription limits as Claude's usage page shows them (rounded up), with a countdown to the reset.
